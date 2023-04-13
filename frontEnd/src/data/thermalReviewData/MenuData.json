@@ -1,0 +1,34 @@
+{
+    "headerImage": "\\eebiker_title_image.png",
+    "menuItems": [
+        {
+            "menuName": "Home",
+            "subMenuRoute": "",
+            "subMenuOptions": [
+            ]
+        },
+        {
+            "menuName": "Product Reviews",
+            "subMenuRoute": "category",
+            "subMenuOptions": [
+                "Scope's",
+                "Binocular's",
+                "Monocular's"
+            ]
+        },
+        {
+            "menuName": "Knowlege Center",
+            "subMenuRoute": "knowlege-center",
+            "subMenuOptions": [
+                "How It Works",
+                "Distance Guide",
+                "Thermal FAQ"
+            ]
+        },
+        {
+            "menuName": "About",
+            "subMenuOptions": [
+            ]
+        }
+    ]
+}

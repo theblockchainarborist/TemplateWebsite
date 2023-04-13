@@ -1,0 +1,87 @@
+{
+    "allContent": [
+        {
+            "id": "a1",
+            "route": "about",
+            "category": "",
+            "title": "About Us",
+            "pageSections": [
+                {
+                    "id": "s1",
+                    "image": "",
+                    "text": "Welcome to The Thermal Reviewer, your one-stop source for all things thermal imaging. Whether you're a hunter, outdoor enthusiast, or professional, our website provides in-depth reviews and analysis of the best thermal scopes, binoculars, and monoculars on the market.",
+                    "decoration": "none"
+                },
+                {
+                    "id": "s2",
+                    "image": "",
+                    "text": "Our team of experts has extensive knowledge and experience with thermal imaging technology and is dedicated to providing you with accurate, unbiased, and up-to-date information. Our reviews are based on extensive research, hands-on testing, and customer feedback, so you can make an informed decision when purchasing your next thermal imaging device.",
+                    "decoration": "none"
+                },
+                {
+                    "id": "s3",
+                    "image": "",
+                    "text": "On our website, you will find detailed reviews of the top thermal scopes, binoculars, and monoculars, including their features, specifications, pros and cons, and much more. We also provide helpful guides and tutorials to assist you in making the most of your thermal imaging device and getting the most out of your outdoor adventures.",
+                    "decoration": "none"
+                },
+                {
+                    "id": "s4",
+                    "image": "",
+                    "text": "We believe that every person should have access to the best information when it comes to thermal imaging, and that's why we created The Thermal Reviewer. Whether you're a seasoned pro or just starting out, our website is the perfect resource for anyone looking to buy the best thermal imaging device for their needs.Browse our site today and discover the world of thermal imaging like never before.",
+                    "decoration": "none"
+                }
+            ]
+        
+        },
+        {
+            "id": "c1",
+            "route": "fiido-d11",
+            "category": "scopes",
+            "title": "Pulsar Thermion 2 XQ50",
+            "pageSections": [
+                {
+                    "id": "s1",
+                    "image": "\\pulsar_xq_50.jpg",
+                    "text": "",
+                    "decoration": "none"
+                },
+                {
+                    "id": "s2",
+                    "image": "",
+                    "text": "The Thermion 2 XQ50 is a premium thermal imaging riflescope from Pulsar that is designed for professional hunting, pest control, and personal security. The device is equipped with top-class thermal imaging sensors that feature enhanced thermal sensitivity and optimized fast aperture germanium optics F/1.0. The riflescope’s high definition AMOLED screen displays an ultra-clear image, and it is designed to operate flawlessly in sub-zero conditions.",
+                    "decoration": "none"
+                },
+                {
+                    "id": "s3",
+                    "image": "",
+                    "text": "One of the main selling points of the Thermion 2 XQ50 is its versatility and comfort of use. The riflescope is equipped with multiple ballistic features that make it suitable for use in a wide range of hunting scenarios. The device’s extended set of image settings allows it to perform well in any weather condition, and its rechargeable battery provides long-lasting performance. The onboard video and still image recording in .mp4 and .jpg formats to a robust 16gb internal storage ensures you can relive all the thermal action later. The riflescope also features customizable reticle options, making it easy to adjust the device to meet your specific needs.",
+                    "decoration": "none"
+                },
+                {
+                    "id": "s4",
+                    "image": "",
+                    "text": "The XQ50 is designed to be user-friendly, and its digital controls make it easy to set up and customize on the fly. The riflescope’s Wi-Fi connectivity via the Stream Vision app makes using a smartphone or tablet as a second display and remote control easy. The app enables users to access advanced features, such as zeroing profiles management, multiple color palettes, picture-in-picture plus video and still-photo recording, and defective pixel repair feature.",
+                    "decoration": "none"
+                },
+                {
+                    "id": "s5",
+                    "image": "",
+                    "text": "The Thermion 2 XQ50 is designed to withstand recoil rated up to .375 H&H, 12-Gauge, and 9.3x64, making it a durable and reliable option for professional hunters and pest control specialists. The device comes with a range of accessories, including two rechargeable batteries, a battery charger, main charger, USB cable, case, cleaning cloth, and battery cover.",
+                    "decoration": "none"
+                },
+                {
+                    "id": "s6",
+                    "image": "",
+                    "text": "Of course, no bike is perfect, and the D11 does have a few limitations. The chunky seatpost design means you can’t use a suspension seatpost or seatpost-mounted accessories like cargo trailers or racks. The included fenders can be finicky to install, and the grips are not very comfortable. Additionally, the lack of closed loops on the frame can make locking up feel less secure, although there are ways to mitigate this with a good lock and anti-theft system.",
+                    "decoration": "none"
+                },
+                {
+                    "id": "s7",
+                    "image": "",
+                    "text": "Overall, this is an impressive thermal imaging riflescope that is packed with features that make it suitable for professional hunters, pest control specialists, and personal security applications. The device’s high-quality sensors, customizable reticle options, and user-friendly design make it a standout option in the market.",
+                    "decoration": "none"
+                }
+            ]
+        }
+    ]
+}
