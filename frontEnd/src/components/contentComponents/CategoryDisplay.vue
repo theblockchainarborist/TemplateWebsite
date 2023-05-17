@@ -1,50 +1,65 @@
 <template>
     <div>
         <h1 class="category-header">
-            {{this.getCategoryName}} Category
+            {{this.getCategoryName}}
         </h1>
-        <div v-for="entry in this.displayData" v-bind:key="entry.id">
-            <content-card :key="entry.route" :page="{'params': {'route': entry.route}}" />
+        <div v-for="entry in this.displayData"  
+                v-bind:key="entry.id"
+            >
+            <content-card 
+                    :pageContent="entry" 
+                    :page="{'params': {'route': entry.route}}" 
+            />
         </div>
     </div>
 </template>
 
 <script>
-import MainContent from '../../data/MainContent';
 import ContentCard from './ContentCard.vue';
+import { getPageContentByCategory } from '../../services/ContentService';
 
 export default {
-  components: { ContentCard },
+    components: { ContentCard },
     name: 'category-display',
-    props: ['category'],
+    props: ['category', 'pageContent'],
     data() {
         return {
-            displayData: []
+            displayData: [],
+            priorCategory: undefined
         }
     },
     computed: {
         getCategoryName() {
             let name = this.category.params.category;
-            return name.charAt(0).toUpperCase() + name.slice(1);
+            let nameArray = name.split("-");
+            for (let i = 0; i < nameArray.length; i++) {
+                nameArray[i] = nameArray[i][0].toUpperCase() + nameArray[i].substr(1);
+            }
+            return nameArray.join(" ");
         }
     },
     methods: {
         getData() {
-            this.displayData = [];
-            for (let i = 0; i < MainContent.allContent.length; i++) {
-                let thisContent = MainContent.allContent[i];
-                if ("/category/" + thisContent.category !== this.category.path) {
-                    continue;
-                } else {
-                    this.displayData.push(thisContent);
-                }
+            let catParams = this.category.params
+
+            if (this.priorCategory !== catParams.category || this.priorCategory == undefined) {
+                this.priorCategory = catParams.category
+
+                let message = {
+                    category: catParams.category
+                    }
+
+            getPageContentByCategory(message)
+                .then(response => {
+                    this.displayData = response;
+                });
             }
         }
     },
     created() {
         this.getData();
     },
-    beforeUpdate() {
+    updated() {
         this.getData();
     }
 }
@@ -56,5 +71,21 @@ export default {
     font-weight: 700;
     font-size: 40px;
     color: black;
+}
+
+@media only screen and  (max-width:900px) { 
+
+    .category-header {
+        font-size: 30px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+}
+
+@media only screen and  (max-width:450px) { 
+
+    .category-header {
+        font-size: 20px;
+    }
 }
 </style>

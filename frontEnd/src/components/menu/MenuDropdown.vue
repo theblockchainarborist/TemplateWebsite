@@ -3,7 +3,7 @@
     <slot name="toggler">
         <div class="menu-btn-div">
             <p class="menu-btn-p">
-                {{menuItem.menuName}}
+                {{menuItem.name}}
             </p>
         </div>
     </slot>
@@ -33,12 +33,11 @@ export default {
   },
   methods: {
     handleClick() {
-      console.log(this.menuItem)
         if (this.hasSubMenu) {
             this.sharedState.active = !this.sharedState.active;
-        } else if (this.menuItem.menuName === "Home") {
+        } else if (this.menuItem.name === "Home") {
             router.push({ name: "home-view" });
-        } else if (this.menuItem.menuName === "About") {
+        } else if (this.menuItem.name === "About") {
           router.push({ name: "main-view", params: {route: "about"}})
         }
     },

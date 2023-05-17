@@ -1,0 +1,13 @@
+{
+    "siteData": [
+        {
+            "logo_image": "",
+            "disclaimer": "",
+            "home_image_slider": [
+                "img1",
+                "img2",
+                "img3"
+            ]
+        }
+    ]
+}

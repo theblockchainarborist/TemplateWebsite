@@ -11,7 +11,5 @@ export default {
 </script>
 
 <style>
-.left-body-div {
 
-}
 </style>

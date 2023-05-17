@@ -3,7 +3,8 @@ const database = require('../database');
 
 const getMenuItems = async (req, res) => {
     try {
-        const readAllQuery = 'SELECT * FROM menu_items';
+        const queryParams = 'id, name, submenu_route';
+        const readAllQuery = `SELECT ${queryParams} FROM menu_items`;
         const { rows } = await database.query(readAllQuery);
 
         if (rows !== undefined) {
@@ -27,7 +28,8 @@ const getMenuItems = async (req, res) => {
 
 const getSubMenuItems = async (req, res) => {
     try {
-        const readAllQuery = 'SELECT * FROM submenu_options WHERE menu_item_id = ' + req.buttonId;
+        const queryParams = 'id, name, menu_item_id';
+        const readAllQuery = `SELECT ${queryParams} FROM submenu_options WHERE menu_item_id = ` + req.buttonId;
         const { rows } = await database.query(readAllQuery);
 
         if (rows !== undefined) {

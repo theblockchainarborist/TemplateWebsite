@@ -1,29 +1,31 @@
 <template>
     <div class="content-card">
         <!-- We get all content for the current route -->
-        <div v-for="content in getContent" 
-                v-bind:key="content.id"
-                class=""
+        
+        <div v-if="pageContent.route !== 'about'"
             >
-
             <div class="card">
-                <img v-if="content.pageSections[0].image"
-                        :src="content.pageSections[0].image" :alt="content.id"
+                    <img v-if="doesHaveImage"
+                        :src="getSectionImage()" alt=""
                         class="card-image"
                         v-on:click="handleClick(content)"
-                >
-                <div class="card-content">
-                    <p class="card-title">{{content.title}}</p>
-                    <p class="card-text">{{getSectionStart(content)}}</p>
+                    >
 
+                <div class="card-content">
+                    <p class="card-title">{{pageContent.title}}</p>
+                    <div v-if="sectionData[1]">
+                        <p class="card-text">{{getSectionStart()}}</p>
+                    </div>
+                    
                     <div class="card-read-more-btn-div">
                         <input  
                             class="card-read-more-btn"
                             type="button" 
                             value="READ MORE"
-                            v-on:click="handleClick(content)"
+                            v-on:click="handleClick()"
                         >
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -31,59 +33,60 @@
 </template>
 
 <script>
-import MainContent from '../../data/MainContent';
 import router from '../../router/index';
+import {getPageSections} from '../../services/ContentService';
 
 export default {
     name: "content-card",
-    props: ['page'],
+    props: ['page', 'pageContent'],
+    data() {
+        return {
+            sections: undefined,
+            sectionData: []
+        }
+    },
     computed: {
-        getContent() {
-            let result = [];
-            for (let i = 0; i < MainContent.allContent.length; i++) {
-                let thisContent = MainContent.allContent[i];
-                if (this.page.path == '/' && thisContent.route !== 'about') {
-                    result.push(thisContent);
-                }
-                if (thisContent.route !== this.page.params.route) {
-                    continue;
-                } else {
-                    result.push(thisContent);
+        doesHaveImage() {
+            let response = false;
+            for (let i = 0; i < this.sectionData.length; i++) {
+                let sectionD = this.sectionData[i];
+                if (sectionD.image_path !== null && sectionD.image_path !== 'none') {
+                    response = true;
                 }
             }
-            return result;
-        },
-        
+            return response;
+        }
     },
     methods: {
-        getPageSections(content) {
-            let result = [];
-            let sections = content.pageSections;
-            for (let i = 0; i < sections.length; i++) {
-                let thisSection = sections[i];
-                result.push(thisSection);
-            }
-            return result;
-        },
-        getSectionImage(section) {
-            let imagePath = section.image;
-            imagePath.replaceAll('//', '/');
-            return imagePath;
-        },
-        getSectionStart(content) {
-            console.log(content)
-            let responseString = "";
-            for (let i = 0; i < content.pageSections.length; i++) {
-                let thisSection = content.pageSections[i];
-                if (thisSection.text !== "") {
-                    responseString = thisSection.text.match(/[^\.!\?]+[\.!\?]+/g);
+        getSectionImage() {
+
+            for (let i = 0; i < this.sectionData.length; i++) {
+                let sectionD = this.sectionData[i];
+                if (sectionD.image_path !== null) {
+                    return '/pageImages/' + sectionD.image_path;
                 }
             }
-            return responseString[0];
         },
-        handleClick(content) {
-            router.push({ name: "main-view", params: { route: content.route } });
+        getSectionStart() {
+            for (let i = 0; i < this.sectionData.length; i++) {
+                let sectionD = this.sectionData[i];
+                if (sectionD.text !== null) {
+                    return sectionD.text.split(/[\.\?!]\s/)[0];
+                }
+            }
+        },
+        handleClick() {
+            router.push({ name: "main-view", params: { route: this.pageContent.route } });
         }
+    },
+    created() {
+        let message = {
+            id: this.pageContent.id
+        }
+        getPageSections(message)
+            .then(response => {
+                this.sectionData = response;
+            });
     }
 }
 </script>
@@ -184,6 +187,24 @@ export default {
         cursor: pointer;
         max-height: 50px;
         margin: 5% auto;
+    }
+}
+
+/*Image mobile css*/
+
+@media only screen and  (max-width:375px) { 
+    .card-image {
+        width: 150px;
+    }
+}
+@media only screen and  (max-width:275px) { 
+    .card-image {
+        width: 120px;
+    }
+}
+@media only screen and  (max-width:200px) { 
+    .card-image {
+        width: 100px;
     }
 }
 </style>

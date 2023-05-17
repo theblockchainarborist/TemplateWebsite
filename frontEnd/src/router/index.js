@@ -27,7 +27,7 @@ const router = createRouter({
       props: category => ({category: category})
     },
     {
-      path: '/knowlege-center/:route',
+      path: '/knowledge-center/:route',
       name: 'knowlege-center-view',
       component: KnowlegeCenterView,
       props: route => ({page: route})

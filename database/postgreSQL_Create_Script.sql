@@ -1,9 +1,13 @@
 BEGIN TRANSACTION;
 
-DROP TABLE IF EXISTS menu_items;
+
 DROP TABLE IF EXISTS submenu_options;
-DROP TABLE IF EXISTS page_content;
+DROP TABLE IF EXISTS menu_items;
 DROP TABLE IF EXISTS page_sections;
+DROP TABLE IF EXISTS page_content;
+DROP TABLE IF EXISTS knowledge_center;
+
+DROP TABLE IF EXISTS site_data;
 
 ------------------
 -- Create Tables
@@ -29,7 +33,7 @@ CREATE TABLE page_content (
 	route varchar(50),
 	category varchar(75),
 	title varchar(150),
-	affiliate_link varchar(500),
+	affiliate_link varchar(750),
 	link_text varchar(125),
 	CONSTRAINT PK_page_content PRIMARY KEY (id)
 );
@@ -37,10 +41,27 @@ CREATE TABLE page_content (
 CREATE TABLE page_sections (
 	id SERIAL,
 	page_content_id int NOT NULL,
-	image_path varchar(200),
-	text varchar(1000),
+	image_path varchar(250),
+	text varchar(2000),
 	decoration varchar(400),
 	CONSTRAINT PK_page_sections PRIMARY KEY (id)
+);
+
+-- Knowledge Center
+CREATE TABLE knowledge_center (
+	id SERIAL,
+	page_route varchar(200),
+	title varchar(150),
+	CONSTRAINT PK_knowledge_center PRIMARY KEY (id)
+);
+
+CREATE TABLE knowledge_center_sections (
+	id SERIAL,
+	knowledge_center_id int NOT NULL,
+	image_path varchar(250),
+	text varchar(2000),
+	decoration varchar(400),
+	CONSTRAINT PK_knowledge_center_sections PRIMARY KEY (id)
 );
 
 ---------------------------------------------------------------
@@ -56,6 +77,11 @@ ADD CONSTRAINT FK_page_content_page_sections
 FOREIGN KEY(page_content_id)
 REFERENCES page_content(id);
 
+ALTER TABLE knowledge_center_sections
+ADD CONSTRAINT FK_knowledge_center_knowledge_center_sections
+FOREIGN KEY(knowledge_center_id)
+REFERENCES knowledge_center(id);
+
 -----------------------------------------------------------
 
 -- Add NOT NULL Constraints
@@ -65,6 +91,10 @@ SET NOT NULL;
 
 ALTER TABLE page_sections
 ALTER COLUMN page_content_id
+SET NOT NULL;
+
+ALTER TABLE knowledge_center_sections
+ALTER COLUMN knowledge_center_id
 SET NOT NULL;
 
 -------------------

@@ -11,6 +11,16 @@ const getPageContent = async (req, res) => {
     res.send(result);
 };
 
+const getPageContentByCategory = async (req, res) => {
+    const result = await contentService.getPageContentByCategory(req.query);
+    res.send(result);
+}
+
+const postPageContent = async (req, res) => {
+    const result = await contentService.postPageContent(req.query);
+    res.send(result);
+};
+
 const getPageSections = async (req, res) => {
     const result = await contentService.getPageSections(req.query);
     res.send(result);
@@ -20,5 +30,7 @@ const getPageSections = async (req, res) => {
 module.exports = {
     getAllPageContent,
     getPageContent,
+    postPageContent,
+    getPageContentByCategory,
     getPageSections
 };

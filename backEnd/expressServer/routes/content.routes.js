@@ -12,7 +12,15 @@ router
     .get(contentController.getPageContent);
 
 router
+    .route('/page')
+    .post(contentController.postPageContent);
+
+router
     .route('/page/sections')
     .get(contentController.getPageSections);
+
+router
+    .route('/category')
+    .get(contentController.getPageContentByCategory)
 
 module.exports = router;

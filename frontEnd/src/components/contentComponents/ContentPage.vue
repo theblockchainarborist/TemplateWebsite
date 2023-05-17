@@ -1,103 +1,70 @@
 <template>
     <div class="content-page">
         <!-- We get all content for the current route -->
-        <div v-for="content in getContent" 
-                v-bind:key="content.id"
-            >
+        <div>
             <p class="content-title">
-                {{content.title}}
+                {{pageContent.title}}
             </p>
-
             <!-- We get all page sections for the content -->
-            <div v-for="section in getPageSections(content)"
+            <div v-for="section in getAllSections"
                     v-bind:key="section.id"
                     class="page-section"
                 >
+
                 <p v-if="section.text"
                         class="section-text"
                         :style="section.decoration"
                     >
                     {{section.text}}
                 </p>
-                <img v-if="section.image"
+                <img v-if="section.image_path"
                         :src="getSectionImage(section)" :alt="section.id"
                         class="section-image"
                     >
-
             </div>
-            <div class="link-btn-div" v-if="content.affiliateLink != ''">
+            <div class="link-btn-div" v-if="pageContent.affiliate_link != null && pageContent.affiliate_link != 'none'">
                 <div class="link-btn" 
-                    v-on:click="openExternalPage(content.affiliateLink)"
+                    v-on:click="openExternalPage(pageContent.affiliate_link)"
                 >
                     <p>
-                        {{content.linkText}}
+                        {{pageContent.link_text}}
                     </p>
                     <img src="../../assets/externalLinkIcon.png"
                         alt="" class="link-icon"
                     >
                 </div>
             </div>
+            <div v-if="pageContent.affiliate_link != null && pageContent.affiliate_link != 'none'">
+                <p class="disclaimer">
+                    {{disclaimer}}
+                </p>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-import MainContent from '../../data/MainContent';
-import KnowlegeCenterData from '../../data/KnowlegeCenterData';
+import Disclaimer from '../../data/Disclaimer.json';
+import {getPageSections} from '../../services/ContentService';
 
 
 export default {
     name: "content-page",
-    props: ['page'],
+    props: ['page', 'pageContent'],
+    data() {
+        return {
+            disclaimer: Disclaimer.disclaimer,
+            sections: undefined
+        }
+    },
     computed: {
-        getContent() {
-
-            switch (this.page.name) {
-                case ('main-view'): {
-                    let result = [];
-                    for (let i = 0; i < MainContent.allContent.length; i++) {
-                        let thisContent = MainContent.allContent[i];
-                        
-                        if ("/" + thisContent.route !== this.page.path) {
-                            continue;
-                        }  else {
-                            result.push(thisContent);
-                        }
-                    }
-                    return result;
-                }
-                case ('knowlege-center-view'): {
-                    let result = [];
-                    for (let i = 0; i < KnowlegeCenterData.data.length; i++) {
-                        let thisContent = KnowlegeCenterData.data[i];
-                        
-                        if ("/" + thisContent.route !== this.page.path) {
-                            continue;
-                        }  else {
-                            result.push(thisContent);
-                        }
-                    }
-                    return result;
-                }
-                default: {
-                    return "";
-                }
-            }
+        getAllSections() {
+            return this.sections;
         }
     },
     methods: {
-        getPageSections(content) {
-            let result = [];
-            let sections = content.pageSections;
-            for (let i = 0; i < sections.length; i++) {
-                let thisSection = sections[i];
-                result.push(thisSection);
-            }
-            return result;
-        },
         getSectionImage(section) {
-            let imagePath = section.image;
-            imagePath.replaceAll('//', '/');
+            let imagePath = '/pageImages/' + section.image_path;
             return imagePath;
         },
         openExternalPage(link) {
@@ -105,6 +72,16 @@ export default {
                 window.open(link, '_blank');
             }
         }
+    },
+    created() {
+        let message = {
+                id: this.pageContent.id
+            }
+
+            getPageSections(message)
+                .then(response => {
+                    this.sections = response;
+            });
     }
 }
 </script>
@@ -158,5 +135,23 @@ export default {
     width: 30px;
     height: 30px;
     margin-left: 10px;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.disclaimer {
+    margin: 0% 10%;
+    font-size: 14px;
+    font-style: italic;
+    margin-top: 5%;
+}
+
+@media only screen and  (max-width:900px) { 
+
+    .content-title {
+        font-size: 25px;
+    }
 }
 </style>

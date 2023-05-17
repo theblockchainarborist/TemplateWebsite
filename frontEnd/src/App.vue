@@ -1,9 +1,27 @@
 <script setup>
 import { RouterView } from 'vue-router'
 import MenuComponent from './components/menu/MenuComponent.vue';
-import MenuData from './data/MenuData';
+import MobileMenuBtn from './components/menu/mobileMenu/MobileMenuBtn.vue';
+import Logo from '/logo.jpg';
+import MobileMenuBtnVue from './components/menu/mobileMenu/MobileMenuBtn.vue';
 
-const HeaderImagePath = MenuData.headerImage;
+const LogoImage = Logo;
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+
+const isSmallScreen = ref(window.innerWidth < 500);
+
+onMounted(() => {
+  window.addEventListener('resize', handleResize);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', handleResize);
+});
+
+function handleResize() {
+  isSmallScreen.value = window.innerWidth < 800;
+}
+
 </script>
 
 <template>
@@ -11,12 +29,17 @@ const HeaderImagePath = MenuData.headerImage;
     <header class="header">
       <nav id="menu-nav">
         <div id="title-image-div">
-            <img :src="HeaderImagePath" 
+            <img :src="LogoImage" 
             class="header-image"
             >
         </div>
         <div class="menu-component-div">
-          <menu-component />
+          <div>
+            <menu-component v-if="!isSmallScreen" />
+          </div>
+          <div v-if="isSmallScreen">
+            <mobile-menu-btn />
+          </div>
         </div>
       </nav>
     </header>
@@ -55,12 +78,13 @@ const HeaderImagePath = MenuData.headerImage;
   height: auto;
   margin: 0px;
   padding: 0px;
+  background-color: rgb(22, 20, 23);
 }
 
 .menu-component-div {
   display: inline-block;
   position: relative;
-  background-color: rgb(0, 0, 0);
+  background-color: rgb(22, 20, 23);
   height: fit-content;
 }
 
@@ -73,4 +97,20 @@ const HeaderImagePath = MenuData.headerImage;
 .header-image {
   width: 50vw;
 }
+
+@media only screen and  (max-width:900px) { 
+
+  .header-image {
+    width: 70vw;
+  }
+}
+
+@media only screen and  (max-width:450px) { 
+
+  .header-image {
+    width: 90vw;
+  }
+}
+
+
 </style>

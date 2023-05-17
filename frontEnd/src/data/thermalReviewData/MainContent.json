@@ -35,8 +35,8 @@
         },
         {
             "id": "c1",
-            "route": "fiido-d11",
-            "category": "scopes",
+            "route": "pulsar/thermion-2/xq50",
+            "category": "scope’s",
             "title": "Pulsar Thermion 2 XQ50",
             "pageSections": [
                 {

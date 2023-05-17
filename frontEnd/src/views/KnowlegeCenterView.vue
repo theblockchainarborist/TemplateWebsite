@@ -5,7 +5,7 @@
 
         <main-body-center 
                 class="main-body-center"
-                :page="page" 
+                :page="this.page" 
             />
 
         <main-body-right />
