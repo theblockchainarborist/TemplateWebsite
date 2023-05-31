@@ -81,7 +81,6 @@ export default {
     },
     methods: {
         toggleMenu() {
-            console.log(this.sharedState)
             this.showMenu == true ? this.showMenu = false : this.showMenu = true;
         },
         hasSubMenu(item) {
@@ -89,8 +88,7 @@ export default {
             ? true
             : false
         },
-        closeMenu(value) {
-            console.log(value)
+        closeMenu() {
             this.showMenu = false;
         },
         toggleMenuOff() {
@@ -112,11 +110,8 @@ export default {
         }
     },
     created() {
-        console.log("CREATED MENU COMPONENT NOW");
         getMenuItems()
                 .then(response => {
-                    console.log("RESPONSE HERE")
-                    console.log(response)
                     this.menuButtons = response;
                 });
         
@@ -128,10 +123,7 @@ export default {
 
             getSubMenuItems(message)
                 .then(response => {
-                    console.log("GET SUB MENU ITEMS RESPONSE")
-
                     response.forEach((item) => {
-                        console.log(item)
                         this.submenu.push(item)
                     })
                     });

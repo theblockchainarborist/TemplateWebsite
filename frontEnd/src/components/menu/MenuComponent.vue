@@ -62,14 +62,10 @@ export default {
         
     },
     created() {
-        console.log("CREATED MENU COMPONENT NOW");
         getMenuItems()
                 .then(response => {
-                    console.log("RESPONSE HERE")
                     console.log(response)
                     this.menuButtons = response;
-                    console.log("MENU BUTTONS!!!")
-                    console.log(this.menuButtons)
                 });
         
 
@@ -81,38 +77,11 @@ export default {
 
             getSubMenuItems(message)
                 .then(response => {
-                    console.log("GET SUB MENU ITEMS RESPONSE")
-
                     response.forEach((item) => {
-                        console.log(item)
                         this.submenu.push(item)
                     })
                     });
         }
-
-        // getSubMenuItems(message)
-        //         .then(response => {
-        //             console.log("GET SUB MENU ITEMS RESPONSE")
-        //             console.log(response);
-        //             this.submenu = response;
-        //             console.log("SUBMENU!!!!!")
-        //             console.log(this.submenu)
-        //             });
-
-        // message = {
-        //     buttonId: 3
-        // }
-
-        // getSubMenuItems(message)
-        //         .then(response => {
-        //             console.log("GET SUB MENU ITEMS RESPONSE")
-        //             console.log(response);
-        //             this.submenu.push(response);
-        //             console.log("SUBMENU!!!!!")
-        //             console.log(this.submenu)
-        //             });
-
-        console.log(this.submenu)
     }
 }
 </script>

@@ -31,7 +31,7 @@ const router = createRouter({
       name: 'knowlege-center-view',
       component: KnowlegeCenterView,
       props: route => ({page: route})
-    },
+    }
   ]
 })
 

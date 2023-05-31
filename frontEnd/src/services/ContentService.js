@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const http = axios.create({
-    baseURL: "http://localhost:3000",
+    baseURL: "https://server.thermalreviewer.com",
     headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -12,13 +12,10 @@ const http = axios.create({
 async function getAllPageContent() {
     return http.get('/content')
             .then(response => {
-
                 if (response.data.status !== 200) {
                     console.log("Error encountered in getAllPageContent");
                     return;
                 } else {
-                    console.log("GET ALL PAGES RESPONSE")
-                    console.log(response.data.message)
                     return response.data.message;
                 }
             });
@@ -28,9 +25,21 @@ async function getAllPageContent() {
 async function getPageContent(pageId) {
     return http.get('/content/page', {params: pageId})
             .then(response => {
-
                 if (response.data.status !== 200) {
                     console.log("Error encountered in getAllPageContent");
+                    return;
+                } else {
+                    return response.data.message;
+                }
+            });
+}
+
+/* Adds 1 to the page view count */
+async function postPageViewCount(viewCount) {
+    return http.put('/content/page', null, {params: viewCount})
+            .then(response => {
+                if (response.data.status !== 200) {
+                    console.log("Error encountered in postPageViewCount");
                     return;
                 } else {
                     return response.data.message;
@@ -42,13 +51,10 @@ async function getPageContent(pageId) {
 async function getPageContentByCategory(category) {
     return http.get('/content/category', {params: category})
             .then(response => {
-
                 if (response.data.status !== 200) {
                     console.log("Error encountered in getAllPageContentByCategory");
                     return;
                 } else {
-                    console.log("RETURNED CATEGORY RESPONSE")
-                    console.log(response.data.message);
                     return response.data.message;
                 }
             });
@@ -58,8 +64,6 @@ async function getPageContentByCategory(category) {
 async function getPageSections(pageId) {
     return http.get('/content/page/sections', {params: pageId})
             .then(response => {
-                console.log("RESPONSE BACK getpageSections")
-                console.log(response)
                 if (response.data.status !== 200) {
                     console.log("Error encountered in getAllPageContent");
                     return;
@@ -74,6 +78,7 @@ async function getPageSections(pageId) {
 export {
     getAllPageContent,
     getPageContent,
+    postPageViewCount,
     getPageContentByCategory,
     getPageSections
 }

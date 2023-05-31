@@ -29,8 +29,6 @@ export default {
     },
     methods: {
         getData() {
-            console.log("this page route is")
-            console.log(this.page.params.route)
 
             let message = {
                 pageRoute: this.page.params.route
@@ -38,8 +36,6 @@ export default {
 
             getKnowledgeCenterPage(message)
             .then(response => {
-                console.log("knowledge center response is back!!")
-                //console.log(response)
                 let data = response[0];
                 this.title = data.title;
 
@@ -48,33 +44,11 @@ export default {
                     let thisSection = data.sections[i];
                     this.sections.push(thisSection);
                 }
-                console.log(this.sections)
             })
         }
     },
     created() {
         this.getData();
-        // console.log("this page route is")
-        // console.log(this.page.params.route)
-
-        // let message = {
-        //     pageRoute: this.page.params.route
-        // }
-
-        // getKnowledgeCenterPage(message)
-        // .then(response => {
-        //     console.log("knowledge center response is back!!")
-        //     //console.log(response)
-        //     let data = response[0];
-        //     this.title = data.title;
-
-        //     // Loop through all sections.
-        //     for (let i = 0; i < data.sections.length; i++) {
-        //         let thisSection = data.sections[i];
-        //         this.sections.push(thisSection);
-        //     }
-        //     console.log(this.sections)
-        // })
     },
     watch: {
         page(newPage, oldPage) {

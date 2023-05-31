@@ -16,7 +16,6 @@ export default {
             let url = this.subMenuItem.replace(/\s+/g, '-').toLowerCase();
             let route = this.subMenuRoute;
 
-            console.log(route)
 
             if (route !== "") {
               return  "/" + route + "/" + url.replaceAll("'", "");

@@ -22,6 +22,10 @@
                         class="section-image"
                     >
             </div>
+            <!-- Display the loader -->
+            <div v-if="isLoading" class="center-loader">
+                <loader-component />
+            </div>
             <div class="link-btn-div" v-if="pageContent.affiliate_link != null && pageContent.affiliate_link != 'none'">
                 <div class="link-btn" 
                     v-on:click="openExternalPage(pageContent.affiliate_link)"
@@ -45,10 +49,12 @@
 
 <script>
 import Disclaimer from '../../data/Disclaimer.json';
-import {getPageSections} from '../../services/ContentService';
+import {getPageSections, postPageViewCount} from '../../services/ContentService';
+import LoaderComponent from '../loaderComponents/LoaderComponent.vue';
 
 
 export default {
+  components: { LoaderComponent },
     name: "content-page",
     props: ['page', 'pageContent'],
     data() {
@@ -60,6 +66,9 @@ export default {
     computed: {
         getAllSections() {
             return this.sections;
+        },
+        isLoading() {
+            return this.sections !== undefined ? false : true;
         }
     },
     methods: {
@@ -82,6 +91,17 @@ export default {
                 .then(response => {
                     this.sections = response;
             });
+        
+        let countMessage = {
+            pageId: this.pageContent.id,
+            viewCount: this.pageContent.view_count + 1
+        }
+
+        postPageViewCount(countMessage)
+        .then(response => {
+            console.log(response)
+        })
+
     }
 }
 </script>
@@ -142,6 +162,7 @@ export default {
 }
 
 .disclaimer {
+    text-align: center;
     margin: 0% 10%;
     font-size: 14px;
     font-style: italic;

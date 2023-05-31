@@ -35,7 +35,6 @@ export default {
   },
   methods: {
     handleClick() {
-      console.log(this.menuItem)
         if (this.hasSubMenu) {
             this.sharedState.active = !this.sharedState.active;
         } else if (this.menuItem.name === "Home") {

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const http = axios.create({
-    baseURL: "http://localhost:3000",
+    baseURL: "https://server.thermalreviewer.com",
     headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -12,7 +12,6 @@ const http = axios.create({
 async function getMenuItems() {
     return http.get('/menu')
             .then(response => {
-
                 if (response.data.status !== 200) {
                     console.log("Error in getMenuItems");
                     return;
@@ -26,7 +25,6 @@ async function getMenuItems() {
 async function getSubMenuItems(buttonId) {
     return http.get('/menu/submenu', {params: buttonId})
             .then(response => {
-
                 if (response.data.status !== 200) {
                     console.log("Error in getSubMenuItems");
                     return;

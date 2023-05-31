@@ -40,6 +40,10 @@
                                 :pageContent="content"        
                         />
                 </div>
+                <!-- Display Loader -->
+                <div v-if="isLoading" class="center-loader">
+                    <loader-component />
+                </div>
             </div>
         </div>
 
@@ -62,6 +66,7 @@ import ContentPage from '../contentComponents/ContentPage.vue';
 import {getAllPageContent, getPageSections} from '../../services/ContentService';
 import ImageSwiper from '../contentComponents/ImageSwiper.vue';
 import KnowledgeCenter from '../knowledgeCenter/KnowledgeCenter.vue';
+import LoaderComponent from '../loaderComponents/LoaderComponent.vue';
 
 
 export default {
@@ -70,7 +75,8 @@ export default {
         ContentCard, 
         CategoryDisplay,
         ImageSwiper,
-        KnowledgeCenter 
+        KnowledgeCenter,
+        LoaderComponent 
     },
         name: "main-body-center",
         props: ['page', 'category'],
@@ -80,16 +86,6 @@ export default {
             }
         },
         methods: {
-            runTest() {
-                console.log("RUNNING TEST")
-                let content = {
-                    pageNumber: 2
-                }
-                getPageSections(content)
-                    .then(response => {
-                        console.log(response);
-                    });
-            },
             getContentCategory(content) {
                 if (content.category !== null) {
                     let c = content.category;
@@ -102,11 +98,13 @@ export default {
             getPages() {
                 return this.allPageContent;
             },
+            isLoading() {
+                return this.allPageContent !== undefined ? false : true;
+            }
         },
         created() {
             getAllPageContent()
                 .then(response => {
-                    console.log(response);
                     this.allPageContent = response;
                 });
         }

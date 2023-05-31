@@ -10,12 +10,12 @@
         :arrows="false" 
         :infinite="true"
         >
-  <vueper-slide  
-    v-for="(slide, i) in slides"
-    :key="i"
-    :image="slide.image"
-    :duration="10000"
-    />
+    <vueper-slide  
+        v-for="(slide, i) in slides"
+        :key="i"
+        :image="slide.image"
+        :duration="10000"
+        />
 </vueper-slides>
 </div>
 
@@ -26,7 +26,10 @@ import { VueperSlides, VueperSlide } from 'vueperslides'
 import 'vueperslides/dist/vueperslides.css'
 
 
-const ImageFolder = import.meta.glob('@/assets/sliderImages/*');
+
+
+
+const ImageFolder = import.meta.glob('@/assets/images/*');
 
 async function loadImages(slides) {
     let slideArray = [];
