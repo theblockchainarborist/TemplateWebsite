@@ -13,7 +13,7 @@ router
 
 router
     .route('/page')
-    .post(contentController.postPageContent);
+    .put(contentController.postPageContent);
 
 router
     .route('/page/sections')

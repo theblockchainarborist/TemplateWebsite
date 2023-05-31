@@ -3,8 +3,8 @@ const database = require('../database');
 
 const getAllPageContent = async (req, res) => {
     try {
-        const queryParams = 'id, route, category, title, affiliate_link, link_text';
-        const readAllQuery = `SELECT ${queryParams} FROM page_content ORDER BY id DESC`;
+        const queryParams = 'id, route, category, title, affiliate_link, link_text, view_count';
+        const readAllQuery = `SELECT ${queryParams} FROM page_content ORDER BY view_count DESC`;
         const { rows } = await database.query(readAllQuery);
 
         if (rows !== undefined) {
@@ -28,8 +28,8 @@ const getAllPageContent = async (req, res) => {
 
 const getPageContent = async (req, res) => {
     try {
-        const queryParams = 'id, route, category, title, affiliate_link, link_text';
-        const readAllQuery = `SELECT ${queryParams} FROM page_content WHERE id = ` + req.pageNumber;
+        const queryParams = 'id, route, category, title, affiliate_link, link_text, view_count';
+        const readAllQuery = `SELECT ${queryParams} FROM page_content WHERE id = ` + req.pageNumber + 'ORDER BY view_count DESC;';
         const { rows } = await database.query(readAllQuery);
 
         if (rows !== undefined) {
@@ -54,8 +54,8 @@ const getPageContent = async (req, res) => {
 /* Get page content by category */
 const getPageContentByCategory = async (req, res) => {
     try {
-        const queryParams = 'id, route, category, title, affiliate_link, link_text';
-        const readAllQuery = `SELECT ${queryParams} FROM page_content WHERE category = ` + "'" + req.category + "'";
+        const queryParams = 'id, route, category, title, affiliate_link, link_text, view_count';
+        const readAllQuery = `SELECT ${queryParams} FROM page_content WHERE category = ` + "'" + req.category + "' ORDER BY view_count DESC;";
         const { rows } = await database.query(readAllQuery);
 
         if (rows !== undefined) {
@@ -77,19 +77,10 @@ const getPageContentByCategory = async (req, res) => {
     }
 }
 
-/* 
-    Expected Optional Params:
-        "route": req.route,         // The route param to the page.
-        "category": req.category,   // The category of the page.
-        "title": req.title,         // The title of the page.
-        "affiliate_link": req.affiliate_link,   // The affiliate link for page.
-        "link_text": req.link_text  // The text for the affiliate link btn.
-*/
 
 const postPageContent = async (req, res) => {
     try {
-
-        if (req.route === undefined) {
+        if (req.pageId === undefined || req.viewCount === undefined) {
             let response = {
                 status: 400,
                 message: "Error in postPageContent - route is undefined and must be defined."
@@ -97,17 +88,9 @@ const postPageContent = async (req, res) => {
             return response;
         }
 
-        
-        const postQuery = 'INSERT INTO page_content (route, category, title, link_text, affiliate_link) VALUES (' + req.route + ', ' 
-                                            + req.category + ', '
-                                            + req.title + ', '
-                                            + req.link_text + ', '
-                                            + req.affiliate_link + ');';
+        const postQuery = 'UPDATE page_content SET view_count = ' + req.viewCount + ' WHERE id = ' + req.pageId + ';';
         
         const { rows } = await database.query(postQuery);
-
-        console.log("postPageContent 'rows' value");
-        console.log(rows);
 
         if (rows !== undefined) {
             let response = {

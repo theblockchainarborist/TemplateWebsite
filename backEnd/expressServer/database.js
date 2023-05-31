@@ -1,5 +1,6 @@
 const { Pool } = require('pg');
-const SECRETS = require('../Secrets/Secrets.json');
+const SECRETS = require('./Secrets/Secrets.json');
+
 
 const USERNAME = SECRETS.database.username;
 const PASSWORD = SECRETS.database.password;
