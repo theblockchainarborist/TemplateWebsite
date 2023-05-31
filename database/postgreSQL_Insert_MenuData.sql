@@ -21,17 +21,17 @@ VALUES('About');
 
 -- We add 3 submenu options for 1 of the above buttons "category"
 INSERT INTO submenu_options (name, menu_item_id)
-VALUES('Scope’s', 2);
+VALUES('Scopes', 2);
 
 INSERT INTO submenu_options (name, menu_item_id)
-VALUES('Binocular’s', 2);
+VALUES('Binoculars', 2);
 
 INSERT INTO submenu_options (name, menu_item_id)
-VALUES('Monocular’s', 2);
+VALUES('Monoculars', 2);
 
 -- Add submenu for "knowledge-center"
 INSERT INTO submenu_options (name, menu_item_id)
-VALUES('How it Work’s', 3);
+VALUES('How it Works', 3);
 
 INSERT INTO submenu_options (name, menu_item_id)
 VALUES('Thermal FAQ', 3);

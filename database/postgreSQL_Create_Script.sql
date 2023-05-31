@@ -1,10 +1,10 @@
 BEGIN TRANSACTION;
 
-
 DROP TABLE IF EXISTS submenu_options;
 DROP TABLE IF EXISTS menu_items;
 DROP TABLE IF EXISTS page_sections;
 DROP TABLE IF EXISTS page_content;
+DROP TABLE IF EXISTS knowledge_center_sections;
 DROP TABLE IF EXISTS knowledge_center;
 
 DROP TABLE IF EXISTS site_data;
@@ -35,6 +35,7 @@ CREATE TABLE page_content (
 	title varchar(150),
 	affiliate_link varchar(750),
 	link_text varchar(125),
+	view_count int,
 	CONSTRAINT PK_page_content PRIMARY KEY (id)
 );
 -- Page Sections
